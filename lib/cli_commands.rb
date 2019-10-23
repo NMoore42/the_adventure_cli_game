@@ -94,7 +94,13 @@ end
 def cave_fork_right_path_4(current_player)
   display_stats(current_player)
   current_player.update(current_room: "Take the Left Path")
-  current_player.current_room = PROMPT.select("You approach the blue glow and find it is coming from the latern of a tinker. He beckons you over and displays his wares. His beady eyes bore into you as you decide what to buy.\n\n", ["Buy Battle Axe - 10 Gold", "Buy Shield - 110 Gold", "Buy Fun Powder - 120 Gold", "Tell Him You'll Think About It and Come Back Later (Though You Know You Definetly Won't Be Back)"])
+  if current_player.gold >= 120
+    current_player.current_room = PROMPT.select("You approach the blue glow and find it is coming from the latern of a tinker. He beckons you over and displays his wares. His beady eyes bore into you as you decide what to buy.\n\n", ["Buy Battle Axe - 10 Gold", "Buy Shield - 110 Gold", "Buy Fun Powder - 120 Gold", "Tell Him You'll Think About It and Come Back Later (Though You Know You Definetly Won't Be Back)"])
+  elsif current_player.gold >= 110
+    current_player.current_room = PROMPT.select("You approach the blue glow and find it is coming from the latern of a tinker. He beckons you over and displays his wares. His beady eyes bore into you as you decide what to buy.\n\n", ["Buy Battle Axe - 10 Gold", "Buy Shield - 110 Gold", { name: 'Buy Fun Powder - 120 Gold', disabled: "(Not Enough Gold)"}, "Tell Him You'll Think About It and Come Back Later (Though You Know You Definetly Won't Be Back)"])
+  else
+    current_player.current_room = PROMPT.select("You approach the blue glow and find it is coming from the latern of a tinker. He beckons you over and displays his wares. His beady eyes bore into you as you decide what to buy.\n\n", ["Buy Battle Axe - 10 Gold", { name: 'Buy Shield - 110 Gold', disabled: "(Not Enough Gold)"}, { name: 'Buy Fun Powder - 120 Gold', disabled: "(Not Enough Gold)"}, "Tell Him You'll Think About It and Come Back Later (Though You Know You Definetly Won't Be Back)"])
+  end
 end
 
 def tinker_choice_axe_5(current_player)
@@ -102,17 +108,32 @@ def tinker_choice_axe_5(current_player)
   current_player.items << Item.find(2)
   display_stats(current_player)
   current_player.current_room = PROMPT.select("You purchase the battle axe. Upon closer inspection, you see that it's made of plastic.\n\n 'It's a child's toy. It costs 10 gold, what did you expect?'\n\n states the tinker. Maybe next time don't be so cheap and purchase a real weapon.\n\n", ["Continue On",  { name: 'Return Item', disabled: "(Must Have Receipt)" }])
+  current_player.current_room = "Continue On"
 end
 
 def tinker_choice_shield_5(current_player)
   current_player.update(current_room: "Take the Left Path", gold: current_player.gold -= 110)
-  display_stats(current_player)
   current_player.items << Item.find(3)
+  display_stats(current_player)
   current_player.current_room = PROMPT.select("You purchase the shield. As he hands it over, it's weight amazes you. It's a quality item, forged from Elvish silversteel. You feel grateful to be so well equipped.\n\n", ["Continue On"])
+  current_player.current_room = "Continue On"
 end
 
 def tinker_choice_fun_powder_5(current_player)
   current_player.update(current_room: "Take the Left Path", gold: current_player.gold -= 120, health: 1500)
   display_stats(current_player)
-  current_player.current_room = PROMPT.select("You purchase the fun powder and immediately ingest it. YOU FEEL GREAT. LIKE THE BEST YOU'VE EVER FELT. THIS IS THE BEST ADVENTURE YOU'VE EVER BEEN ON. WHEN YOU RETURN, YOU SHOULD START YOU'RE OWN TACO TRUCK COMPANY.  EVERYONE LOVES TACOS. WHY ARE THERE NO TACOS IN THIS CAVE? WHY DO CAVES EXIST? ARE CAVES LIKE CASTLES BUT FOR CREEPY THINGS. CAVE. THAT'S A WEIRD WORD. IT'S ODD HOW WHEN YOU SAY CAVE, IT STARTS AT THE BACK OF YOUR MOUTH AND THEN ENDS AT THE FRONT. IF I SWALLOW A FLY, DOES THE FLY THINK MY MOUTH IS A CAVE? IS MY MOUTH A CAVE? AM I IN SOMETHING'S MOUTH?.\n\n", ["Continue On"])
+  current_player.current_room = PROMPT.select("You purchase the fun powder and immediately ingest it. YOU FEEL GREAT. LIKE THE BEST YOU'VE EVER FELT. THIS IS THE BEST ADVENTURE YOU'VE EVER BEEN ON. WHEN YOU RETURN, YOU SHOULD START YOUR OWN TACO TRUCK COMPANY.  EVERYONE LOVES TACOS. WHY ARE THERE NO TACOS IN THIS CAVE? WHY DO CAVES EXIST? ARE CAVES LIKE CASTLES BUT FOR CREEPY THINGS. CAVE. THAT'S A WEIRD WORD. IT'S ODD HOW WHEN YOU SAY CAVE, IT STARTS AT THE BACK OF YOUR MOUTH AND THEN ENDS AT THE FRONT. IF I SWALLOW A FLY, DOES THE FLY THINK MY MOUTH IS A CAVE? IS MY MOUTH A CAVE? AM I IN SOMETHING'S MOUTH?.\n\n", ["Continue On"])
+  current_player.current_room = "Continue On"
+end
+
+def tinker_choice_continue_5(current_player)
+  if current_player.health > 1000
+    current_player.update(current_room: "Continue", health: 1)
+    display_stats(current_player)
+    current_player.current_room = PROMPT.select("You wake up facedown on the cold muddy cavern floor. Your mouth tastes like ash, and there appears to be remnents of cockroach legs stuck between your teeth.  You've soiled yourself and your hands, knees, and face are crusted in blood. A loud drumming noise pulses in your head. As you stand up, you immediately projectile vomit the remains of a rat. 'What a night' you say to no one in particular.\n\n", ["Walk to find water", { name: 'Enter Rehab', disabled: "(No Health Insurance)" }])
+  else
+    current_player.update(current_room: "Continue")
+    display_stats(current_player)
+    current_player.current_room = PROMPT.select("You move onward through the cave.  Ahead, you can hear a sound like dripping water. Thirsty, you head towards it.\n\n", ["Walk to find water"])
+  end
 end

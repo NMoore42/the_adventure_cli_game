@@ -40,7 +40,11 @@ while
   when "Buy Fun Powder - 120 Gold"
     puts `clear`
     tinker_choice_fun_powder_5(current_player)
+  when "Continue On"
+    puts `clear`
+    tinker_choice_continue_5(current_player)
   end
+
 
 
 
