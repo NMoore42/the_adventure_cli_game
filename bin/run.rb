@@ -1,17 +1,47 @@
 require_relative '../config/environment'
 puts `clear`
-user_name = get_user_name
+player_name = get_player_name
 puts `clear`
-user_home = get_user_home(user_name)
+player_home = get_player_home(player_name)
 puts `clear`
-current_user = find_or_create_user(user_name, user_home)
+current_player = find_or_create_player(player_name, player_home)
 
 #Case statement within while loop to control TTY prompts.
 while
-  case current_user.current_room
+  case current_player.current_room
 
   when "Entrance"
     puts `clear`
-    puts "You are at the entrance"
+    entrance_1(current_player)
+  when "Explore the Path"
+    puts `clear`
+    winding_path_1a(current_player)
+  when "Enter the Cave"
+    puts `clear`
+    mouth_of_the_cave_2(current_player)
+  when "Inspect Object"
+    puts `clear`
+    inspect_object_2(current_player)
+  when "Continue Forward"
+    puts `clear`
+    cave_fork_3(current_player)
+  when "Take the Left Path"
+    puts `clear`
+    cave_fork_left_path_4(current_player)
+  when "Take the Right Path"
+    puts `clear`
+    cave_fork_right_path_4(current_player)
+  when "Buy Battle Axe - 10 Gold"
+    puts `clear`
+    tinker_choice_axe_5(current_player)
+  when "Buy Shield - 110 Gold"
+    puts `clear`
+    tinker_choice_shield_5(current_player)
+  when "Buy Fun Powder - 120 Gold"
+    puts `clear`
+    tinker_choice_fun_powder_5(current_player)
   end
+
+
+
 end
