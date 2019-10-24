@@ -8,8 +8,10 @@ task :console do
   Pry.start
 end
 
-# desc 'seeds database with newest crypto prices and starts Coin Market App'
-# task :start_app do
-#   Rake::Task['db:seed'].invoke
-#   ruby "bin/run.rb"
-# end
+desc 'migrates, seeds, and starts app'
+task :start_game do
+  "bundle install"
+  Rake::Task['db:migrate'].invoke
+  Rake::Task['db:seed'].invoke
+  ruby "bin/run.rb"
+end

@@ -2,7 +2,4 @@
 
 This is a silly game I decided to make for fun.
 
-To start, run:
-  -> rake db:migrate
-  -> rake db:seed
-  -> ruby bin/run.rb
+To start, run "rake start_game"
