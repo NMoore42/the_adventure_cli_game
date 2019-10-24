@@ -1,4 +1,6 @@
 require_relative '../config/environment'
+
+###RUNS ON PROGRAM LAUNCH
 puts `clear`
 player_name = get_player_name
 puts `clear`
@@ -6,7 +8,7 @@ player_home = get_player_home(player_name)
 puts `clear`
 current_player = find_or_create_player(player_name, player_home)
 
-#Case statement within while loop to control TTY prompts.
+#CASE STATEMENT WITHIN WHILE LOOPS TO CONTROL TTY PROMPTS
 while current_player.current_room != "Game Over"
   case current_player.current_room
 
@@ -43,6 +45,9 @@ while current_player.current_room != "Game Over"
   when "Continue On"
     puts `clear`
     tinker_choice_continue_5(current_player)
+  when "Tell Him You'll Think About It and Come Back Later (Though You Know You Definetly Won't Be Back)"
+    puts `clear`
+    tinker_choice_continue_5(current_player)
   when "Walk to find water"
     puts `clear`
     water_hole_6(current_player)
@@ -52,12 +57,9 @@ while current_player.current_room != "Game Over"
   when "Dead Men Have No Choices ☠️"
     puts `clear`
     dead_men_8(current_player)
+  when "Exit the cavern"
+    puts `clear`
+    exit_cavern_9(current_player)
   end
-
-
-
-
-
-
 
 end

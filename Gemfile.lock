@@ -25,6 +25,7 @@ GEM
       domain_name (~> 0.5)
     i18n (1.7.0)
       concurrent-ruby (~> 1.0)
+    kramdown (1.16.2)
     method_source (0.9.2)
     mime-types (3.3)
       mime-types-data (~> 3.2015)
@@ -48,6 +49,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rouge (3.12.0)
     sinatra (2.0.7)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -64,8 +66,19 @@ GEM
     strings-ansi (0.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    tty-box (0.5.0)
+      pastel (~> 0.7.2)
+      strings (~> 0.1.6)
+      tty-cursor (~> 0.7)
     tty-color (0.5.0)
     tty-cursor (0.7.0)
+    tty-markdown (0.6.0)
+      kramdown (~> 1.16.2)
+      pastel (~> 0.7.2)
+      rouge (~> 3.3)
+      strings (~> 0.1.4)
+      tty-color (~> 0.4)
+      tty-screen (~> 0.6)
     tty-prompt (0.19.0)
       necromancer (~> 0.5.0)
       pastel (~> 0.7.0)
@@ -101,6 +114,8 @@ DEPENDENCIES
   rest-client
   sinatra-activerecord
   sqlite3
+  tty-box
+  tty-markdown
   tty-prompt
   tty-table
 

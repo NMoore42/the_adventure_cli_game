@@ -10,3 +10,5 @@ gem "rest-client"
 gem "faker"
 gem 'tty-prompt'
 gem 'tty-table'
+gem 'tty-markdown'
+gem 'tty-box'
