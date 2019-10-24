@@ -7,7 +7,7 @@ puts `clear`
 current_player = find_or_create_player(player_name, player_home)
 
 #Case statement within while loop to control TTY prompts.
-while
+while current_player.current_room != "Game Over"
   case current_player.current_room
 
   when "Entrance"
@@ -43,7 +43,19 @@ while
   when "Continue On"
     puts `clear`
     tinker_choice_continue_5(current_player)
+  when "Walk to find water"
+    puts `clear`
+    water_hole_6(current_player)
+  when "Head towards the light"
+    puts `clear`
+    head_towards_the_light_7(current_player)
+  when "Dead Men Have No Choices ☠️"
+    puts `clear`
+    dead_men_8(current_player)
   end
+
+
+
 
 
 

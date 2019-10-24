@@ -137,3 +137,74 @@ def tinker_choice_continue_5(current_player)
     current_player.current_room = PROMPT.select("You move onward through the cave.  Ahead, you can hear a sound like dripping water. Thirsty, you head towards it.\n\n", ["Walk to find water"])
   end
 end
+
+def water_hole_6(current_player)
+  current_player.update(current_room: "Walk to find water")
+  display_stats(current_player)
+  current_player.current_room = PROMPT.select("You reach a deep, dark well.  Down below, you see a shimmering, golden object.  It calls you. Ahead, you see a light leading to the way out.  A dark, shadowy figure steps in front.\n\n", ["Head towards the light", { name: "Explore the well", disabled: "(Please pay for the full version to gain access to this content)" }])
+end
+
+def head_towards_the_light_7(current_player)
+  if current_player.items.find_by(name: "Shield") && current_player.items.find_by(name: "Engraved Sword")
+    current_player.update(gold: current_player.gold += 600)
+    display_stats(current_player)
+    current_player.current_room = PROMPT.select("You march towards the sweet, fresh air of freedom. As you approach the light, a shadowy serpentine figure slithers from the corner. As it rears up in front of the exit, all light is drowned out. From deep within it's gullet, you see glow of red fire. \n\nEquipped with sword and shield. you strike quickly. You dodge a near-fatal swipe, claws scrapping against your steel crest. You leap forward, plunging your sword into it's chest cavity, spilling it's life-fire onto the cavern floor. As it let's out it's death cry, you strike again, parting head from body. Beneath the lifeless corpse, you find it's horded gold.....but alast, there is no cup in sight!\n\n", ["Exit the cavern"])
+  elsif current_player.items.find_by(name: "Battle Axe") && current_player.items.find_by(name: "Engraved Sword")
+    current_player.update(health: current_player.health = 0)
+    display_stats(current_player)
+    current_player.current_room = PROMPT.select("You march towards the sweet, fresh air of freedom. As you approach the light, a shadowy serpentine figure slithers from the corner. As it rears up in front of the exit, all light is drowned out. From deep within it's gullet, you see glow of red fire. \n\nEquipped with sword and battle axe, you strike quickly. You dodge a near-fatal swipe, claws scrapping against your steel blade. You leap forward, plunging your battle axe into it's chest cavity. It instantly shatters into a hundred plastic pieces. The dragon seizes it's opportunity, engulfing you in flames. As your body burns, you think back on your previous choices. The gold you saved from buying the cheap battle axe liqufies from the heat, burning through your cloack and away from your charrded body.\n\n", ["Dead Men Have No Choices ☠️"])
+  elsif current_player.items.find_by(name: "Engraved Sword") && current_player.health < 5
+    current_player.update(health: current_player.health = 0)
+    display_stats(current_player)
+    current_player.current_room = PROMPT.select("You crawl towards the sweet, fresh air of freedom. As you approach the light, a shadowy serpentine figure slithers from the corner. As it rears up in front of the exit, all light is drowned out. From deep within it's gullet, you see glow of red fire. \n\nYou attempt to raise your sword. Shaking from withdrawl, it's weight proves too heavy. The steel falls from your hands, it's sound reaking havoc on your over-burdened senses. You soil yourself again. The dragon can sense your worthlessness, and chooses not to make you it's next meal. As it turns away from you, you hear a quick 'flit' noise. It's tails slices through your cloak and body with barely a hesitation. As you fall away from your lower half into the ground, your reflect on your previous choices, thoughts of taco trucks will be your life's last...\n\n", ["Dead Men Have No Choices ☠️"])
+  elsif current_player.items.find_by(name: "Engraved Sword")
+    current_player.update(health: current_player.health = 0)
+    display_stats(current_player)
+    current_player.current_room = PROMPT.select("You march towards the sweet, fresh air of freedom. As you approach the light, a shadowy serpentine figure slithers from the corner. As it rears up in front of the exit, all light is drowned out. From deep within it's gullet, you see glow of red fire. \n\nYou raise your sword, attempting to block it's first strike. The force of the impact proves too great, shattering you shoulder and knocking your weapon from it's grip. As it barrels down upon you, mouth open, you refelct on your previous choices. Why did you think it was a good idea to enter into battle with no protection...\n\n", ["Dead Men Have No Choices ☠️"])
+  else
+    current_player.update(health: current_player.health = 0)
+    display_stats(current_player)
+    current_player.current_room = PROMPT.select("You march towards the sweet, fresh air of freedom. As you approach the light, a shadowy serpentine figure slithers from the corner. As it rears up in front of the exit, all light is drowned out. From deep within it's gullet, you see glow of red fire. \n\nWeaponless, you try to block the dragon's blow. The force of the impact proves too great, shattering you shoulder. As it barrels down upon you, mouth open, you refelct on your previous choices. Why did you think it was a good idea to enter into battle with no sword and no protection...\n\n", ["Dead Men Have No Choices ☠️"])
+  end
+end
+
+def dead_men_8(current_player)
+  puts '
+             uu$$$$$$$$$$$uu
+          uu$$$$$$$$$$$$$$$$$uu
+         u$$$$$$$$$$$$$$$$$$$$$u
+        u$$$$$$$$$$$$$$$$$$$$$$$u
+       u$$$$$$$$$$$$$$$$$$$$$$$$$u
+       u$$$$$$$$$$$$$$$$$$$$$$$$$u
+       u$$$$$$"   "$$$"   "$$$$$$u
+       "$$$$"      u$u       $$$$"
+        $$$u       u$u       u$$$
+        $$$u      u$$$u      u$$$
+         "$$$$uu$$$   $$$uu$$$$"
+          "$$$$$$$"   "$$$$$$$"
+            u$$$$$$$u$$$$$$$u
+             u$"$"$"$"$"$"$u
+  uuu        $$u$ $ $ $ $u$$       uuu
+ u$$$$        $$$$$u$u$u$$$       u$$$$
+  $$$$$uu      "$$$$$$$$$"     uu$$$$$$
+u$$$$$$$$$$$uu    """""    uuuu$$$$$$$$$$
+$$$$"""$$$$$$$$$$uuu   uu$$$$$$$$$"""$$$"
+ """      ""$$$$$$$$$$$uu ""$"""
+           uuuu ""$$$$$$$$$$uuu
+  u$$$uuu$$$$$$$$$uu ""$$$$$$$$$$$uuu$$$
+  $$$$$$$$$$""""           ""$$$$$$$$$$$"
+   "$$$$$"                      ""$$$$""
+     $$$"                         $$$$"'
+  puts "\n\nHere Lies #{current_player.name}"
+  if current_player.items.find_by(name: "Battle Axe")
+    puts "\nDied from being too cheap."
+  elsif current_player.health < 5
+    puts "\nDied from not just saying no."
+  else current_player.items.find_by(name: "Engraved Sword")
+    puts "\nDied from being ill-equipped"
+  end
+  exit
+
+
+
+end
