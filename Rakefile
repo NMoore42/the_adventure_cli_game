@@ -10,8 +10,11 @@ end
 
 desc 'migrates, seeds, and starts app'
 task :start_game do
-  "bundle install"
-  Rake::Task['db:migrate'].invoke
-  Rake::Task['db:seed'].invoke
+  if !Item.all
+    puts "Migrating..."
+    Rake::Task['db:migrate'].invoke
+    puts "Seeding..."
+    Rake::Task['db:seed'].invoke
+  end
   ruby "bin/run.rb"
 end
